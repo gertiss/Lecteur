@@ -15,32 +15,32 @@ import RegexBuilder
 /// optionnellement encadrée par des espaces ou tabs.
 /// Donc `Token("abc").lire("  abc  ")` réussit, et la valeur capturée est `"abc"`.Toute la chaîne `"  abc  "` est consommée.
 /// `Token("abc").lire("xyz")` échoue et le message est : on attend "abc"
-struct Token: AvecLecteurInstance {
+public struct Token: AvecLecteurInstance {
     
-    var sourceRelisible: String
+    public var sourceRelisible: String
     
-    init(_ sourceRelisible: String) {
+    public init(_ sourceRelisible: String) {
         self.sourceRelisible = sourceRelisible
     }
 
-    var description: String {
+    public var description: String {
         "Token(\"\(sourceRelisible)\")"
     }
     
     /// On accepte sourceRelisible encadrée optionnellement d'espaces ou tabs
-    var regex: Regex<Substring> {
+    public var regex: Regex<Substring> {
         Regex {
-            OneOrMore {
+            ZeroOrMore {
                 .anyOf(" \t")
             }
             sourceRelisible
-            OneOrMore {
+            ZeroOrMore {
                 .anyOf(" \t")
             }
         }
     }
     
-    var lecteur: Lecteur<Self> {
+    public var lecteur: Lecteur<Self> {
         Lecteur<Self>(attendu: sourceRelisible) { source in
             guard let match = source.prefixMatch(of: regex)?.output else {
                 return .echec(Erreur(message: "On attend \"\(sourceRelisible)\"", reste: source))
