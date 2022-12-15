@@ -60,7 +60,7 @@ public extension Lecteur {
         return self
     }
     
-    func lireTout(_ source: String) -> Lecture<Valeur> where Valeur: AvecLecteur {
+    func lireTout(_ source: String) -> Lecture<Valeur>  {
         let lecture = lire(source)
         switch lecture  {
         case .echec(_):
@@ -68,7 +68,14 @@ public extension Lecteur {
         case .succes(let lu):
             if lu.reste.elague.isEmpty { return lecture }
             else {
-                return .echec(Valeur.erreurSiReste(lu.reste))
+                let reste = lu.reste
+                switch reste.validiteParenthesage(ouvrante: "{", fermante: "}") {
+                case .failure(let message):
+                    return .echec(Erreur(message: "On attend \(Valeur.self) et rien après. " + message, reste: reste))
+                case .success(_):
+                    return .echec(Erreur(message: "On attend \(Valeur.self) et rien après", reste: reste))
+                }
+
             }
         }
     }

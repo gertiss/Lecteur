@@ -8,7 +8,7 @@
 import Foundation
 import RegexBuilder
 
-/// Est considéré comme vide dans une source une suite éventuellement vide de `.espaceOuTab`
+/// Représente une suite éventuellement vide de `.espaceOuTab`
 /// La lecture retourne la valeur `Vide()`
 public struct Vide: AvecLecteurRegex {
     

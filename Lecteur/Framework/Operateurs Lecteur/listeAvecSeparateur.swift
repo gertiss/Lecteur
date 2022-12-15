@@ -9,7 +9,8 @@ import Foundation
 
 public extension Lecteur  {
     
-    /// Valeur (separateur Valeur)*
+    /// `Valeur (separateur Valeur)*`
+    /// Le séparateur est un Token, donc éventuellement encadré par des espaces ou tabs (mais pas return)
     func listeNonVideAvecSeparateur(_ separateur: String) -> Lecteur<[Valeur]> {
         listeNonVideAvecSeparateur(Token(separateur).lecteur)
     }

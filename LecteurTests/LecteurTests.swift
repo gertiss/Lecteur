@@ -103,8 +103,9 @@ final class LecteurTests: XCTestCase {
         
         let lectureEchec = lecteur.lire("a @")
         XCTAssert(lectureEchec.estEchec)
-        XCTAssertEqual(lectureEchec.reste, "a @")
-        XCTAssertEqual(lectureEchec.texte, "􀅾 On attend Mot 􀄫\"a @\"")
+        // On a lu un seul mot a, il reste @
+        XCTAssertEqual(lectureEchec.reste, "@")
+        XCTAssertEqual(lectureEchec.texte, "􀅾 On attend Mot 􀄫\"@\"")
     }
     
     func testSuiviDe2() {
@@ -118,8 +119,9 @@ final class LecteurTests: XCTestCase {
         
         let lectureEchec = lecteur.lire("a b @")
         XCTAssert(lectureEchec.estEchec)
-        XCTAssertEqual(lectureEchec.reste, "a b @")
-        XCTAssertEqual(lectureEchec.texte, "􀅾 On attend Mot après Mot et Mot 􀄫\"a b @\"")
+        // On a lu a et b, il reste @
+        XCTAssertEqual(lectureEchec.reste, "@")
+        XCTAssertEqual(lectureEchec.texte, "􀅾 On attend Mot 􀄫\"@\"")
     }
     
     func testSuiviDe3() {
@@ -179,9 +181,12 @@ final class LecteurTests: XCTestCase {
     }
     
     
-    func testLecteurAvecTerminateur() {
+    func testLecteurAvecMarqueFin() {
         let lecteur = Mot.lecteur.avecMarqueFin(Token("\n").lecteur)
-        print(lecteur.lire(" a \n suite").texte)
+        let lecture = lecteur.lire(" a \n suite")
+        XCTAssert(lecture.estSucces)
+        XCTAssertEqual(lecture.reste, "suite")
+        print(lecture.texte)
     }
     
     func testCaptureGlobale() {
@@ -213,14 +218,22 @@ final class LecteurTests: XCTestCase {
     func testListeNonVide() {
         let lecteur = Mot.lecteur.listeNonVide()
         let lecture = lecteur.lire("a b c")
+        XCTAssert(lecture.estSucces)
+        XCTAssertEqual(lecture.reste, "")
         print(lecture.texte)
                 
     }
     
     func testErreurListeNonVideAvecSeparateur() {
         let lecteur = Mot.lecteur.listeNonVideAvecSeparateur(",")
+            .mapValeur { mots in
+                mots
+            }
         let lecture = lecteur.lireTout("a b, c")
         XCTAssert(lecture.estEchec)
+        // On a lu a, ce qui donne une liste [a]
+        // mais il y a un reste et on n'en veut pas à cause de lireTout
+        XCTAssertEqual(lecture.reste, "b, c")
         print(lecture.texte)
     }
     
@@ -229,27 +242,32 @@ final class LecteurTests: XCTestCase {
         
         let lecture = lecteur.lireTout("a b, c")
         XCTAssert(lecture.estEchec)
-        // a lu avec succès, il manque une virgule après
+        // a lu avec succès, mais il doit y avoir un second mot
+        // donc on attend une virgule avant b
+        XCTAssertEqual(lecture.reste, "b, c")
         print(lecture.texte)
         
     }
     
     func testErreurSuiviDe() {
         let lecteur = Mot.lecteur.suiviDe(Mot.lecteur)
-        let lecture = lecteur.lire("a @ a")
+        let lecture = lecteur.lire("a, b")
         XCTAssert(lecture.estEchec)
+        // On a lu a mais on attend un second mot, sans séparateur
+        XCTAssertEqual(lecture.reste, ", b")
         print(lecture.texte)
 
     }
     
     func testToken() {
         let lecteur = Token("abc").lecteur
-        let lecture = lecteur.lire(" abc ")
+        let lecture = lecteur.lire(" abc ") // espaces autorisés
         XCTAssert(lecture.estSucces)
         XCTAssertEqual(lecture.valeur, Token("abc"))
         
         let lectureEchec = lecteur.lire("xyz")
         XCTAssert(lectureEchec.estEchec)
+        // On attend abc mais on a lu xyz
         print(lectureEchec.texte)
     }
     

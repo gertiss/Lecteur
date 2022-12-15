@@ -19,7 +19,6 @@ public protocol AvecLecteur: Equatable, CustomStringConvertible {
     /// description est un code Swift dont l'évaluation donne une copie de sel
     var description: String { get }
     
-    static func erreurSiReste(_ reste: String) -> Erreur
 }
 
 public extension AvecLecteur {
@@ -33,10 +32,6 @@ public extension AvecLecteur {
     
     static func lireTout(_ source: String) -> Lecture<Self> {
         Self.lecteur.lireTout(source)
-    }
-
-    static func erreurSiReste(_ reste: String) -> Erreur {
-        Erreur(message: "On attend \(Self.self) et rien après", reste: reste)
     }
     
     static func lecturePrefixe(_ source: String) -> Lecture<Self> {
