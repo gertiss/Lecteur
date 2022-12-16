@@ -54,19 +54,11 @@ public extension Lecteur  {
                             // La valeur finale de succès
                             (valeur01.valeur.0, valeur01.valeur.1, valeur2)
                         }
-                        .mapErreur { erreur2 in
-                            // erreur2 dans le troisième élément
-                            Erreur(message: "On attend \(lecteur2.attendu) après \(self.attendu) et \(lecteur1.attendu)", reste: source)
-                        }
                 }
                 .puis { valeur012 in // valeur012: (Valeur0, Valeur1, Valeur2)
                     lecteur3.lire(valeur012.reste)
                         .mapValeur { valeur3 in
                             (valeur012.valeur.0, valeur012.valeur.1, valeur012.valeur.2, valeur3)
-                        }
-                        .mapErreur { erreur3 in
-                            // erreur3 dans le quatrième élément
-                            Erreur(message: "On attend \(lecteur3.attendu) après \(self.attendu), \(lecteur1.attendu) et \(lecteur2.attendu)", reste: source)
                         }
                 }
         }

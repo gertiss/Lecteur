@@ -1,5 +1,5 @@
 //
-//  Vide.swift
+//  EspacesOuTabs.swift
 //  Lecteur
 //
 //  Created by Gérard Tisseau on 30/11/2022.
@@ -9,18 +9,18 @@ import Foundation
 import RegexBuilder
 
 /// Représente une suite éventuellement vide de `.espaceOuTab`
-/// La lecture retourne la valeur `Vide()`
-public struct Vide: AvecLecteurRegex {
+/// La lecture retourne la valeur `EspacesOuTabs()`
+public struct EspacesOuTabs: AvecLecteurRegex {
     
     public init() {
         
     }
     
-    public static func valeur(_ sortie: (Substring, String)) -> Vide {
-        Vide()
+    public static func valeur(_ sortie: (Substring, String)) -> EspacesOuTabs {
+        EspacesOuTabs()
     }
     
-    public static func == (lhs: Vide, rhs: Vide) -> Bool {
+    public static func == (lhs: EspacesOuTabs, rhs: EspacesOuTabs) -> Bool {
         true
     }
     
@@ -39,7 +39,7 @@ public struct Vide: AvecLecteurRegex {
     }
     
     public var description: String {
-        "Vide()"
+        "EspacesOuTabs()"
     }
     
     

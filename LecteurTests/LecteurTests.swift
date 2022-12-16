@@ -136,8 +136,8 @@ final class LecteurTests: XCTestCase {
         
         let lectureEchec = lecteur.lire("a b c @")
         XCTAssert(lectureEchec.estEchec)
-        XCTAssertEqual(lectureEchec.reste, "a b c @")
-        XCTAssertEqual(lectureEchec.texte, "􀅾 On attend Mot après Mot, Mot et Mot 􀄫\"a b c @\"")
+        XCTAssertEqual(lectureEchec.reste, "@")
+        XCTAssertEqual(lectureEchec.texte, "􀅾 On attend Mot 􀄫\"@\"")
     }
     
     func testOu() {

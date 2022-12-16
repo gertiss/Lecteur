@@ -27,7 +27,7 @@ Un "symbole terminal" est un lecteur obtenu par la méthode d'instance de String
 
 Un "symbole non terminal" est un lecteur obtenu par la méthode lecteur d'un type conforme à `AvecLecteur` ou `AvecLecteurRegex`
 
-Le "symbole vide" est le lecteur obtenu par méthode `lecteur` du type `Vide`. Il reconnaît toute suite d'espaces ou tabs et fournit comme valeur `Vide()`.
+Le "symbole vide" est le lecteur obtenu par méthode `lecteur` du type `EspacesOuTabs`. Il reconnaît toute suite d'espaces ou tabs et fournit comme valeur `EspacesOuTabs()`.
 
 Les opérateurs de base sont : 
 
@@ -36,8 +36,8 @@ Les opérateurs de base sont :
     - Zero-or-more: e* -> e.liste() . Valeur lue : [E]
     - One-or-more: e+ -> e.listeNonVide() . Valeur lue : [E]
     - Optional: e? -> e.optionnel() . Valeur lue : E?
-    - And-predicate: &e -> e.present() . Valeur lue Vide
-    - Not-predicate: !e -> e.absent() . Valeur lue Vide
+    - And-predicate: &e -> e.present() . Valeur lue EspacesOuTabs
+    - Not-predicate: !e -> e.absent() . Valeur lue EspacesOuTabs
 
 
 Il y a d'autres opérateurs, dérivés des précédents :

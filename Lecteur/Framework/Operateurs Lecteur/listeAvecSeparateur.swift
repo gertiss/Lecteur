@@ -26,9 +26,9 @@ public extension Lecteur  {
     }
 
     
-    /// listeAvecSeparateur | Vide
+    /// listeAvecSeparateur | EspacesOuTabs
     func listeAvecSeparateur(_ separateur: String) -> Lecteur<[Valeur]> {
-        self.listeNonVideAvecSeparateur(Token(separateur).lecteur).ou(Vide.lecteur)
+        self.listeNonVideAvecSeparateur(Token(separateur).lecteur).ou(EspacesOuTabs.lecteur)
             .mapValeur { choixListeOuVide in
                 switch choixListeOuVide {
                 case .cas0(let liste):
@@ -40,7 +40,7 @@ public extension Lecteur  {
     }
     
     func listeAvecSeparateur<T>(_ separateur: Lecteur<T>) -> Lecteur<[Valeur]> {
-        self.listeNonVideAvecSeparateur(separateur).ou(Vide.lecteur)
+        self.listeNonVideAvecSeparateur(separateur).ou(EspacesOuTabs.lecteur)
             .mapValeur{ choixListeOuVide in
                 switch choixListeOuVide {
                 case .cas0(let liste):
