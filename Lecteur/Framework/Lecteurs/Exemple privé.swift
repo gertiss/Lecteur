@@ -1,5 +1,14 @@
 //
-//  Mot.swift
+//  Exemple.swift
+//  Lecteur
+//
+//  Created by Gérard Tisseau on 17/12/2022.
+//
+
+import Foundation
+
+//
+//  Exemple.swift
 //  Lecteur
 //
 //  Created by Gérard Tisseau on 30/11/2022.
@@ -24,13 +33,13 @@ struct Mot: AvecLecteurRegex {
     
     typealias SortieRegex = (Substring, String)
     static let regex = Regex<(Substring, String)> {
-        ZeroOrMore { CharacterClass.espaceOuTab }
+        ZeroOrMore { CharacterClass.caractereEspaceOuTab }
         Capture {
             OneOrMore { .word }
         } transform: {
             String($0)
         }
-        ZeroOrMore { CharacterClass.espaceOuTab }
+        ZeroOrMore { CharacterClass.caractereEspaceOuTab }
     }
     
     static func valeur(_ sortie: (Substring, String)) -> Mot {

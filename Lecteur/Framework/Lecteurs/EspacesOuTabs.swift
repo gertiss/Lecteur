@@ -28,7 +28,7 @@ public struct EspacesOuTabs: AvecLecteurRegex {
     
     public static let regex = Regex<(Substring, String)> {
         Capture {
-            ZeroOrMore { CharacterClass.espaceOuTab }
+            ZeroOrMore { CharacterClass.caractereEspaceOuTab }
         } transform: {
             String($0)
         }
