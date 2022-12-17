@@ -16,7 +16,7 @@ public protocol AvecLecteur: Equatable, CustomStringConvertible {
     /// `Self.lecteur.lireTout(sourceRelisible) -> copie de self`
     var sourceRelisible: String { get }
     
-    /// description est un code Swift dont l'évaluation donne une copie de sel
+    /// description est un code Swift dont l'évaluation donne une copie de self
     var description: String { get }
     
 }
@@ -34,22 +34,6 @@ public extension AvecLecteur {
         Self.lecteur.lireTout(source)
     }
     
-    static func lecturePrefixe(_ source: String) -> Lecture<Self> {
-        lecteur.lire(source)
-    }
-    
-    static func lectureTotale(_ source: String) -> Lecture<Self> {
-        lecteur.lireTout(source)
-    }
-
-    static func instancePrefixe(_ source: String) -> Self? {
-        lecturePrefixe(source).valeur
-    }
-    
-    static func instanceTotale(_ source: String) -> Self? {
-        lectureTotale(source).valeur
-    }
-        
     static var nom: String { "\(Self.self)" }
     
 }
