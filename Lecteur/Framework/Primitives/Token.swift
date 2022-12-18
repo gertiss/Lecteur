@@ -27,7 +27,7 @@ public struct Token: AvecLecteurInstance {
         "Token(\"\(sourceRelisible)\")"
     }
     
-    /// On accepte sourceRelisible
+    /// On accepte sourceRelisible et uniquement elle
     public var regex: Regex<Substring> {
         Regex {
             sourceRelisible
