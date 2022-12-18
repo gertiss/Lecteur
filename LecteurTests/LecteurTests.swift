@@ -209,7 +209,7 @@ final class LecteurTests: XCTestCase {
         let lecteur = Mot.lecteur.avecSuffixe(Token("\n").lecteur)
         let lecture = lecteur.lire("a \n suite")
         XCTAssert(lecture.estSucces)
-        XCTAssertEqual(lecture.reste, "suite")
+        XCTAssertEqual(lecture.reste, " suite")
         print(lecture.texte)
     }
     
@@ -303,7 +303,7 @@ final class LecteurTests: XCTestCase {
     
     func testToken() {
         let lecteur = Token("abc").lecteur
-        let lecture = lecteur.lire("abc") // espaces autorisés
+        let lecture = lecteur.lire("abc")
         XCTAssert(lecture.estSucces)
         XCTAssertEqual(lecture.valeur, Token("abc"))
         
@@ -358,28 +358,28 @@ final class LecteurTests: XCTestCase {
 
         XCTAssert(testerSucces(
             prompt: "mot en ignorant  encadrement mot ... mot",
-            Mot.lecteur.enIgnorantEncadrement(ouvrante: Mot.lecteur, fermante: Mot.lecteur),
+            Mot.lecteur.enIgnorantEncadrement(prefixe: Mot.lecteur, suffixe: Mot.lecteur),
             "a b c d")
         )
         
         XCTAssert(testerSucces(
-            prompt: "mot en ignorant  encadrement espaces ou tabs ou returns ... espaces ou tabs ou returns", Mot.lecteur.enIgnorantEncadrement(ouvrante: EspacesOuTabsOuReturns.lecteur, fermante: EspacesOuTabsOuReturns.lecteur),
+            prompt: "mot en ignorant  encadrement espaces ou tabs ou returns ... espaces ou tabs ou returns", Mot.lecteur.enIgnorantEncadrement(prefixe: EspacesOuTabsOuReturns.lecteur, suffixe: EspacesOuTabsOuReturns.lecteur),
             " \n a \n b")
         )
         
         XCTAssert(testerSucces(
             prompt: "mot en ignorant  encadrement espaces ou tabs ou returns ... espaces ou tabs ou returns",
-            Mot.lecteur.enIgnorantEncadrement(ouvrante: EspacesOuTabsOuReturns.lecteur, fermante: EspacesOuTabsOuReturns.lecteur), "a")
+            Mot.lecteur.enIgnorantEncadrement(prefixe: EspacesOuTabsOuReturns.lecteur, suffixe: EspacesOuTabsOuReturns.lecteur), "a")
         )
         
         XCTAssert(testerSucces(
             prompt: "mot en ignorant  encadrement mot ... mot",
-            Mot.lecteur.enIgnorantEncadrement(ouvrante: Mot.lecteur, fermante: Mot.lecteur), "a b")
+            Mot.lecteur.enIgnorantEncadrement(prefixe: Mot.lecteur, suffixe: Mot.lecteur), "a b")
         )
         
         XCTAssert(testerEchec(
             prompt: "mot en ignorant  encadrement mot ... mot",
-            Mot.lecteur.enIgnorantEncadrement(ouvrante: Mot.lecteur, fermante: Mot.lecteur), "a")
+            Mot.lecteur.enIgnorantEncadrement(prefixe: Mot.lecteur, suffixe: Mot.lecteur), "a")
         )
         
         XCTAssert(testerSucces(

@@ -13,16 +13,16 @@ public extension Lecteur {
     /// lit une ouvrante, puis self puis une fermante
     /// et compile en ignorant ouvrante et fermante
     func avecEncadrement<Esp: UnEspacement>(ouvrante: String, fermante: String, espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Self {
-        avecEncadrement(ouvrante: Token(ouvrante).lecteur, fermante: Token(fermante).lecteur, espacement: espacement)
+        avecEncadrement(prefixe: Token(ouvrante).lecteur, suffixe: Token(fermante).lecteur, espacement: espacement)
     }
         
-    func avecEncadrement<O, F, Esp: UnEspacement>(ouvrante: Lecteur<O>, fermante: Lecteur<F>, espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Self  {
-        ouvrante
+    func avecEncadrement<O, F, Esp: UnEspacement>(prefixe: Lecteur<O>, suffixe: Lecteur<F>, espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Self  {
+        prefixe
             .enIgnorantSuffixe(espacement)
             .mapErreur { erreur in
-                Erreur(message: "On attend \(ouvrante.attendu)", reste: erreur.reste)
+                Erreur(message: "On attend \(prefixe.attendu)", reste: erreur.reste)
             }
-            .suiviDe2(self, fermante.enIgnorantPrefixe(espacement))
+            .suiviDe2(self, suffixe.enIgnorantPrefixe(espacement))
             .mapValeur { (ouvrante, valeur, fermante) in
                 valeur
             }

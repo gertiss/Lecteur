@@ -54,8 +54,8 @@ public extension Lecteur {
     /// Les espacements après le préfixe et avant le suffixe sont consommés.
     /// Donc le pattern est  : préfixe espacement self espacement suffixe
     /// La valeur compilée est juste self
-    func enIgnorantEncadrement<O, F, Esp: UnEspacement>(ouvrante: Lecteur<O>, fermante: Lecteur<F>, espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Self {
-        self.enIgnorantPrefixe(ouvrante, espacement: espacement).enIgnorantSuffixe(fermante, espacement: espacement)
+    func enIgnorantEncadrement<O, F, Esp: UnEspacement>(prefixe: Lecteur<O>, suffixe: Lecteur<F>, espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Self {
+        self.enIgnorantPrefixe(prefixe, espacement: espacement).enIgnorantSuffixe(suffixe, espacement: espacement)
     }
 
 }
