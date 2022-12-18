@@ -27,16 +27,10 @@ public struct Token: AvecLecteurInstance {
         "Token(\"\(sourceRelisible)\")"
     }
     
-    /// On accepte sourceRelisible encadrée optionnellement d'espaces ou tabs
+    /// On accepte sourceRelisible
     public var regex: Regex<Substring> {
         Regex {
-            ZeroOrMore {
-                .anyOf(" \t")
-            }
             sourceRelisible
-            ZeroOrMore {
-                .anyOf(" \t")
-            }
         }
     }
     

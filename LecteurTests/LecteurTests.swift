@@ -19,6 +19,20 @@ final class LecteurTests: XCTestCase {
         print()
     }
     
+    func testerSucces<T>(prompt: String = "", _ lecteur: Lecteur<T>, _ source: String) -> Bool {
+        let lecture = lecteur.lire(source)
+        print("\n> \(prompt) \"\(source)\"")
+        print(lecture.texte)
+        return lecture.estSucces
+    }
+
+    func testerEchec<T>(prompt: String = "", _ lecteur: Lecteur<T>, _ source: String) -> Bool {
+        let lecture = lecteur.lire(source)
+        print("\n> \(prompt) \"\(source)\"")
+        print(lecture.texte)
+        return lecture.estEchec
+    }
+
     /// Application de Mirror pour analyser un résultat output d'un match avec Regex.
     /// output est un un tuple dont le premier composant est une Substring.
     /// Utilisé dans le protocole AvecLecteurRegex, fonction captureGlobale(sortie).
@@ -72,19 +86,28 @@ final class LecteurTests: XCTestCase {
     }
     
     func testLecteurMot() {
-        XCTAssertEqual(Mot.lecteur.lire(" abc def ").texte,
-                  "􀆅 Mot(\"abc\") 􀄫\"def\""
+        XCTAssertEqual(Mot.lecteur.lire("abc def ").texte,
+                  "􀆅 Mot(\"abc\") 􀄫\" def \""
         )
         XCTAssertEqual(Mot.lecteur.lire(" ").texte,
                        "􀅾 On attend Mot 􀄫\" \""
         )
    }
+    
+    func testLecteurVide() {
+        XCTAssert(
+        testerSucces(
+            prompt: "Vide réussit toujours",
+            Vide.lecteur,
+            "a b @")
+        )
+    }
  
     func testOptionnel() {
         let lecteur = Mot.lecteur.optionnel()
         let lecture = lecteur.lire("a b")
         XCTAssert(lecture.estSucces)
-        XCTAssertEqual(lecture.reste, "b")
+        XCTAssertEqual(lecture.reste, " b")
         XCTAssertEqual(lecture.valeur, Mot("a"))
         
         let lectureVide = lecteur.lire("@")
@@ -95,11 +118,11 @@ final class LecteurTests: XCTestCase {
     
     func testSuiviDe() {
         let lecteur = Mot.lecteur.suiviDe(Mot.lecteur)
-        let lectureSucces = lecteur.lire("a b c")
+        let lectureSucces = lecteur.lire("a b c ")
         XCTAssert(lectureSucces.estSucces)
         XCTAssertEqual(lectureSucces.valeur?.0, Mot("a"))
         XCTAssertEqual(lectureSucces.valeur?.1, Mot("b"))
-        XCTAssertEqual(lectureSucces.reste, "c")
+        XCTAssertEqual(lectureSucces.reste, " c ")
         
         let lectureEchec = lecteur.lire("a @")
         XCTAssert(lectureEchec.estEchec)
@@ -115,7 +138,7 @@ final class LecteurTests: XCTestCase {
         XCTAssertEqual(lectureSucces.valeur?.0, Mot("a"))
         XCTAssertEqual(lectureSucces.valeur?.1, Mot("b"))
         XCTAssertEqual(lectureSucces.valeur?.2, Mot("c"))
-        XCTAssertEqual(lectureSucces.reste, "d")
+        XCTAssertEqual(lectureSucces.reste, " d")
         
         let lectureEchec = lecteur.lire("a b @")
         XCTAssert(lectureEchec.estEchec)
@@ -132,7 +155,8 @@ final class LecteurTests: XCTestCase {
         XCTAssertEqual(lectureSucces.valeur?.1, Mot("b"))
         XCTAssertEqual(lectureSucces.valeur?.2, Mot("c"))
         XCTAssertEqual(lectureSucces.valeur?.3, Mot("d"))
-        XCTAssertEqual(lectureSucces.reste, "e")
+        XCTAssertEqual(lectureSucces.reste, " e")
+        print(lectureSucces.texte)
         
         let lectureEchec = lecteur.lire("a b c @")
         XCTAssert(lectureEchec.estEchec)
@@ -143,18 +167,18 @@ final class LecteurTests: XCTestCase {
     func testOu() {
         // Attention à l'ordre des clauses
         let lecteur = Mot.lecteur.suiviDe(Mot.lecteur).ou(Mot.lecteur)
-        let lecture = lecteur.lire(" a b c")
+        let lecture = lecteur.lire("a b c")
         XCTAssert(lecture.estSucces) // cas0 -> (Mot("a"), Mot("b"))
-        XCTAssertEqual(lecture.reste, "c")
+        XCTAssertEqual(lecture.reste, " c")
         
         let lecture1 = lecteur.lire("a @")
         XCTAssert(lecture1.estSucces) // cas1 -> Mot("a")
-        XCTAssertEqual(lecture1.reste, "@")
+        XCTAssertEqual(lecture1.reste, " @")
     }
 
     func testLecteurListeAvecSeparateur() {
         // Liste de mots séparés par des virgules
-        let lecteur = Mot.lecteur.listeAvecSeparateur(",")
+        let lecteur = Mot.lecteur.listeAvecSeparateur(",".lecteur)
         let lecture = lecteur.lire("a, b, c  def")
         XCTAssert(lecture.estSucces)
         XCTAssertEqual(lecture.valeur, [Mot("a"), Mot("b"), Mot("c")])
@@ -163,7 +187,7 @@ final class LecteurTests: XCTestCase {
         let lectureVide = lecteur.lire("@")
         XCTAssert(lectureVide.estSucces)
         XCTAssertEqual(lectureVide.valeur, [])
-        XCTAssertEqual(lectureVide.reste, "@")
+        print(lectureVide.texte)
     }
     
     func testLecteurListeNonVideAvecSeparateur() {
@@ -182,8 +206,8 @@ final class LecteurTests: XCTestCase {
     
     
     func testLecteurAvecMarqueFin() {
-        let lecteur = Mot.lecteur.avecMarqueFin(Token("\n").lecteur)
-        let lecture = lecteur.lire(" a \n suite")
+        let lecteur = Mot.lecteur.avecSuffixe(Token("\n").lecteur)
+        let lecture = lecteur.lire("a \n suite")
         XCTAssert(lecture.estSucces)
         XCTAssertEqual(lecture.reste, "suite")
         print(lecture.texte)
@@ -215,13 +239,27 @@ final class LecteurTests: XCTestCase {
         print(lecture.texte)
     }
     
-    func testListeNonVide() {
-        let lecteur = Mot.lecteur.listeNonVide()
-        let lecture = lecteur.lire("a b c")
+    func testListe() {
+        let lecteur = Mot.lecteur.liste()
+        let lecture = lecteur.lire("a b c ")
         XCTAssert(lecture.estSucces)
         XCTAssertEqual(lecture.reste, "")
         print(lecture.texte)
+        
+        let lectureListeVide = lecteur.lire("@")
+        XCTAssert(lectureListeVide.estSucces)
+        print(lectureListeVide.texte)
                 
+    }
+
+    func testListeNonVide() {
+        let lecteur = Mot.lecteur.listeNonVide()
+        let lecture = lecteur.lire("a b c @")
+        XCTAssert(lecture.estSucces)
+        // l'espacement après le dernier élément a été consommé
+        XCTAssertEqual(lecture.reste, "@")
+        print(lecture.texte)
+
     }
     
     func testErreurListeNonVideAvecSeparateur() {
@@ -247,6 +285,10 @@ final class LecteurTests: XCTestCase {
         XCTAssertEqual(lecture.reste, "b, c")
         print(lecture.texte)
         
+        print(lecteur.lire("a , b").texte)
+        print(lecteur.lire("a,b").texte)
+        print(lecteur.lire("a, b").texte)
+
     }
     
     func testErreurSuiviDe() {
@@ -261,7 +303,7 @@ final class LecteurTests: XCTestCase {
     
     func testToken() {
         let lecteur = Token("abc").lecteur
-        let lecture = lecteur.lire(" abc ") // espaces autorisés
+        let lecture = lecteur.lire("abc") // espaces autorisés
         XCTAssert(lecture.estSucces)
         XCTAssertEqual(lecture.valeur, Token("abc"))
         
@@ -269,6 +311,109 @@ final class LecteurTests: XCTestCase {
         XCTAssert(lectureEchec.estEchec)
         // On attend abc mais on a lu xyz
         print(lectureEchec.texte)
+    }
+    
+    /// Le lecteur Int de Swift n'accepte ni les espaces avant (il n'élague pas préventivement) ni les espaces après (c'est un lireTout strict).
+    func testLectureSwiftInt() {
+        XCTAssertEqual(Int("1"), 1)
+        XCTAssertEqual(Int(" 1"), nil)
+        XCTAssertEqual(Int("1 "), nil)
+    }
+    
+    func testAvecEncadrement() {
+        let lecteur = Mot.lecteur.avecEncadrement(ouvrante: "{", fermante: "}", espacement: EspacesOuTabsOuReturns.lecteur)
+        let lecture = lecteur.lire("{\n a \n } @")
+        print(lecture.texte)
+    }
+    
+    func testEnIgnorant() {
+        
+        XCTAssert(testerSucces(
+            prompt: "mot en ignorant préfixe mot ...",
+            Mot.lecteur.enIgnorantPrefixe(Mot.lecteur),
+            "a b c")
+        )
+ 
+        /// L'espacement après le préfixe vide est consommé
+        /// Cela revient à dire qu'on accepte un espacement initial
+        XCTAssert(testerSucces(
+            prompt: "mot en ignorant préfixe vide ...",
+            Mot.lecteur.enIgnorantPrefixe(Vide.lecteur),
+            " a b c")
+        )
+
+        XCTAssert(testerSucces(
+            prompt: "mot en ignorant suffixe ... mot",
+            Mot.lecteur.enIgnorantSuffixe(Mot.lecteur),
+            "a b c")
+        )
+
+        /// L'espacement avant le suffixe vide est consommé
+        /// Cela revient à dire qu'on consomme un espacement après le mot
+        XCTAssert(testerSucces(
+            prompt: "mot en ignorant suffixe ... vide",
+            Mot.lecteur.enIgnorantSuffixe(Vide.lecteur),
+            "a b c")
+        )
+
+        XCTAssert(testerSucces(
+            prompt: "mot en ignorant  encadrement mot ... mot",
+            Mot.lecteur.enIgnorantEncadrement(ouvrante: Mot.lecteur, fermante: Mot.lecteur),
+            "a b c d")
+        )
+        
+        XCTAssert(testerSucces(
+            prompt: "mot en ignorant  encadrement espaces ou tabs ou returns ... espaces ou tabs ou returns", Mot.lecteur.enIgnorantEncadrement(ouvrante: EspacesOuTabsOuReturns.lecteur, fermante: EspacesOuTabsOuReturns.lecteur),
+            " \n a \n b")
+        )
+        
+        XCTAssert(testerSucces(
+            prompt: "mot en ignorant  encadrement espaces ou tabs ou returns ... espaces ou tabs ou returns",
+            Mot.lecteur.enIgnorantEncadrement(ouvrante: EspacesOuTabsOuReturns.lecteur, fermante: EspacesOuTabsOuReturns.lecteur), "a")
+        )
+        
+        XCTAssert(testerSucces(
+            prompt: "mot en ignorant  encadrement mot ... mot",
+            Mot.lecteur.enIgnorantEncadrement(ouvrante: Mot.lecteur, fermante: Mot.lecteur), "a b")
+        )
+        
+        XCTAssert(testerEchec(
+            prompt: "mot en ignorant  encadrement mot ... mot",
+            Mot.lecteur.enIgnorantEncadrement(ouvrante: Mot.lecteur, fermante: Mot.lecteur), "a")
+        )
+        
+        XCTAssert(testerSucces(
+            prompt: "mot en ignorant  encadrement debut ... fin",
+            Mot.lecteur.enIgnorantPrefixe("debut".lecteur)
+                .enIgnorantSuffixe("fin".lecteur),
+            "debut a fin")
+        )
+ 
+        XCTAssert(testerSucces(
+            prompt: "mot en ignorant  encadrement debut ... fin",
+            Mot.lecteur.enIgnorantPrefixe("debut".lecteur)
+                .enIgnorantSuffixe("fin".lecteur),
+            "a")
+        )
+ 
+       XCTAssert(testerSucces(
+            prompt: "mot avec encadrement debut ... fin",
+            Mot.lecteur.avecEncadrement(ouvrante: "debut", fermante: "fin"),
+            "debut a fin")
+        )
+
+        XCTAssert(testerEchec(
+             prompt: "mot avec encadrement debut ... fin",
+             Mot.lecteur.avecEncadrement(ouvrante: "debut", fermante: "fin"),
+             "debut a")
+         )
+
+        XCTAssert(testerEchec(
+             prompt: "mot avec encadrement debut ... fin",
+             Mot.lecteur.avecEncadrement(ouvrante: "debut", fermante: "fin"),
+             "a fin")
+         )
+
     }
     
 }

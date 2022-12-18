@@ -11,7 +11,7 @@ import Foundation
 
 public extension Lecteur where Valeur: AvecLecteur {
     
-    func listeNonVide() -> Lecteur<[Valeur]> {
+    func listeNonVide<Esp: UnEspacement>(espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Lecteur<[Valeur]> {
         .init { source in
             // On essaye de lire une première valeur.
             let lecturePremiereValeur = self.lire(source)
@@ -20,8 +20,10 @@ public extension Lecteur where Valeur: AvecLecteur {
                 return .echec(lecturePremiereValeur.erreur!)
             }
             // On a lu un premier element : premiereValeur.
-            // On essaye de lire récursivement le reste des valeurs.
-            let lectureReste = self.liste().lire(lecturePremiereValeur.reste)
+            // On essaye de lire récursivement le reste des valeurs
+            // après un espacement
+            let resteApresEspacement = espacement.resteApresLecture(lecturePremiereValeur.reste)
+            let lectureReste = self.liste(espacement: espacement).lire(resteApresEspacement)
             guard let resteDesValeurs = lectureReste.valeur else {
                 fatalError("La lecture d'une liste devrait toujours réussir")
             }

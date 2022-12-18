@@ -10,7 +10,7 @@ import RegexBuilder
 
 /// Représente une suite éventuellement vide de `.espaceOuTab`
 /// La lecture retourne la valeur `EspacesOuTabs()`
-public struct EspacesOuTabsOuReturns: AvecLecteurRegex {
+public struct EspacesOuTabsOuReturns: AvecLecteurRegex, UnEspacement {
     
     public init() {
         
@@ -20,8 +20,7 @@ public struct EspacesOuTabsOuReturns: AvecLecteurRegex {
         EspacesOuTabsOuReturns()
     }
     
-    public typealias SortieRegex = Substring
-    
+    /// Réussit toujours. Peut être vide
     public static let regex = espacesOuTabsOuReturns
     
     public var sourceRelisible: String {
@@ -31,6 +30,5 @@ public struct EspacesOuTabsOuReturns: AvecLecteurRegex {
     public var description: String {
         "EspacesOuTabsOuReturns()"
     }
-    
     
 }

@@ -20,11 +20,13 @@ public extension CharacterClass {
 
 // MARK: - Regex. Global
 
+/// Réussit toujours. Peut être vide
 let espacesOuTabs = Regex<Substring> {
     ZeroOrMore { CharacterClass.caractereEspaceOuTab }
 }
 
 
+/// Réussit toujours. Peut être vide
 let espacesOuTabsOuReturns = Regex<Substring> {
     ZeroOrMore { CharacterClass.caractereEspaceOuTabOuReturn }
 }

@@ -23,11 +23,11 @@ Ici "symbole" veut dire : une instance du type Lecteur.
 
 Pour créer des instances de `Lecteur`, on dispose de types vérifiant le protocole `AvecLecteur` ou `AvecLecteurRegex`. Lorsqu'un type `T` est conforme à un de ces protocoles, il a un lecteur associé en variable static : `T.lecteur`, de type `Lecteur<T>`. La lecture d'une source par ce lecteur s'écrit `T.lecteur.lire(source)` et donne une instance de `Lecture<T>`, qui est une enum `.succes(Lu<T>`) ou `.echec(Erreur`). En cas de succès `.succes(lu)`, la valeur associée est `lu.valeur` et elle est de type `T`.
 
-Un "symbole terminal" est un lecteur obtenu par la méthode d'instance de String  `lecteur`. `string.lecteur` donne un lecteur qui reconnaît uniquement cette string, en ignorant les espaces ou tab qui sont avant et après. La valeur retournée est la string elle-même.
+Un "symbole terminal" est un lecteur obtenu par la méthode d'instance de String  `lecteur`. `string.lecteur` donne un lecteur qui reconnaît uniquement cette string. La valeur retournée est la string elle-même.
 
 Un "symbole non terminal" est un lecteur obtenu par la méthode lecteur d'un type conforme à `AvecLecteur` ou `AvecLecteurRegex`
 
-Le "symbole vide" est le lecteur obtenu par méthode `lecteur` du type `EspacesOuTabs`. Il reconnaît toute suite d'espaces ou tabs et fournit comme valeur `EspacesOuTabs()`.
+Le "symbole vide" est le lecteur qui réussit toujours sans rien consommer et qui fournit comme valeur la String vide.
 
 Les opérateurs de base sont : 
 

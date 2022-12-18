@@ -13,14 +13,11 @@ extension String: Error { }
 
 public extension String {
     
-    var elague: String {
-        trimmingCharacters(in: .whitespaces)
-    }
 
     /// Supprime le préfixe s'il existe. Elague le résultat.
     func sansPrefixe(_ prefix: String) -> String {
         guard self.hasPrefix(prefix) else { return self }
-        return String(self.dropFirst(prefix.count)).elague
+        return String(self.dropFirst(prefix.count))
     }
     
     /// Si le texte n'est pas un suffixe, on retourne nil
@@ -72,13 +69,13 @@ extension String: AvecLecteurInstance {
         self
     }
     
-    /// On lit la source, puis on élague le reste
+    /// La source doit commencer par self
     public func lire(_ source: String) -> Lecture<String> {
-        let flux = source.elague
+        let flux = source
         guard flux.hasPrefix(self) else {
             return .echec(Erreur(message: "On attend \"\(self)\"", reste: source))
         }
-        return .succes(Lu(valeur: self, reste: flux.sansPrefixe(self).elague))
+        return .succes(Lu(valeur: self, reste: flux.sansPrefixe(self)))
     }
     
     public init(sourceRelisible: String) {

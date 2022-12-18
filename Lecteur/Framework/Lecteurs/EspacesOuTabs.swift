@@ -10,29 +10,22 @@ import RegexBuilder
 
 /// Représente une suite éventuellement vide de `.espaceOuTab`
 /// La lecture retourne la valeur `EspacesOuTabs()`
-public struct EspacesOuTabs: AvecLecteurRegex {
+public struct EspacesOuTabs: AvecLecteurRegex, UnEspacement {
     
     public init() {
         
     }
     
-    public static func valeur(_ sortie: (Substring, String)) -> EspacesOuTabs {
+    public static func valeur(_ sortie: Substring) -> EspacesOuTabs {
         EspacesOuTabs()
     }
     
     public static func == (lhs: EspacesOuTabs, rhs: EspacesOuTabs) -> Bool {
         true
     }
-    
-    public typealias SortieRegex = (Substring, String) // Attention : équivalent à Substring
-    
-    public static let regex = Regex<(Substring, String)> {
-        Capture {
-            ZeroOrMore { CharacterClass.caractereEspaceOuTab }
-        } transform: {
-            String($0)
-        }
-    }
+        
+    /// Réussit toujours. Peut être vide
+    public static let regex = espacesOuTabs
     
     public var sourceRelisible: String {
         ""
@@ -41,6 +34,5 @@ public struct EspacesOuTabs: AvecLecteurRegex {
     public var description: String {
         "EspacesOuTabs()"
     }
-    
     
 }

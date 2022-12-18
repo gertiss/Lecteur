@@ -11,6 +11,8 @@ import Foundation
 public struct Lecteur<Valeur> {
     
     public let lire: (String) -> Lecture<Valeur>
+    
+    /// Le texte à afficher dans le message "On attend ..."
     public var attendu: String
     
     public init(attendu: String? = nil, lire: @escaping (String) -> Lecture<Valeur>) {
@@ -66,7 +68,7 @@ public extension Lecteur {
         case .echec(_):
             return lecture
         case .succes(let lu):
-            if lu.reste.elague.isEmpty { return lecture }
+            if lu.reste.isEmpty { return lecture }
             else {
                 let reste = lu.reste
                 switch reste.validiteParenthesage(ouvrante: "{", fermante: "}") {

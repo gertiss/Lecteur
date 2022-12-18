@@ -11,7 +11,7 @@ import Foundation
 /// `a.liste()`
 public extension Lecteur {
     
-    func liste() -> Lecteur<[Valeur]> {
+    func liste<Esp: UnEspacement>(espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Lecteur<[Valeur]> {
         .init { source in
             
             // On essaye de lire une première valeur.
@@ -21,12 +21,15 @@ public extension Lecteur {
                 return .succes(Lu(valeur: [], reste: source))
             }
             // On a lu un premier element : premiereValeur.
-            // On essaye de lire récursivement le reste des valeurs.
-            let lectureReste = self.liste().lire(lecturePremiereValeur.reste)
+            // On essaye de lire récursivement le reste des valeurs
+            // après un espacement
+            let resteApresEspacement = espacement.resteApresLecture(lecturePremiereValeur.reste)
+            let lectureReste = self.liste(espacement: espacement).lire(resteApresEspacement)
             guard let resteDesValeurs = lectureReste.valeur else {
                 fatalError("La lecture d'une liste devrait toujours réussir")
             }
             // Succès final
+            // Effet de bord : l'espacement après la liste est consommé
             return .succes(Lu(valeur: [premiereValeur] + resteDesValeurs, reste: lectureReste.reste)
             )
         }
