@@ -29,9 +29,9 @@ public extension Lecteur {
     /// Donc la pattern est : préfixe espacement self
     /// La valeur compilée est juste self
 
-    func enIgnorantPrefixe<P, Esp: UnEspacement>(_ prefixe: Lecteur<P>, espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Self {
+    func enIgnorantPrefixe<P, Esp: UnEspacement>(_ prefixe: Lecteur<P>, espacement: Esp = EspacesOuTabs()) -> Self {
         prefixe.ignore()
-            .suiviDe2(espacement, self)
+            .suiviDe2(espacement.lecteur, self)
             .mapValeur { (ignore, esp, valeur) in
                 valeur
             }
@@ -42,9 +42,9 @@ public extension Lecteur {
     /// L'espacement avant le suffixe est consommé après avoir lu self et avant de lire le suffixe
     /// Donc le pattern est :  self espacement suffixe
     /// La valeur compilée est juste self
-    func enIgnorantSuffixe<P, Esp: UnEspacement>(_ suffixe: Lecteur<P>, espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Self {
+    func enIgnorantSuffixe<P, Esp: UnEspacement>(_ suffixe: Lecteur<P>, espacement: Esp = EspacesOuTabs()) -> Self {
         self
-            .suiviDe2(espacement, suffixe.ignore())
+            .suiviDe2(espacement.lecteur, suffixe.ignore())
             .mapValeur { (valeur, esp, ignore) in
                 valeur
             }
@@ -54,7 +54,7 @@ public extension Lecteur {
     /// Les espacements après le préfixe et avant le suffixe sont consommés.
     /// Donc le pattern est  : préfixe espacement self espacement suffixe
     /// La valeur compilée est juste self
-    func enIgnorantEncadrement<O, F, Esp: UnEspacement>(prefixe: Lecteur<O>, suffixe: Lecteur<F>, espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Self {
+    func enIgnorantEncadrement<O, F, Esp: UnEspacement>(prefixe: Lecteur<O>, suffixe: Lecteur<F>, espacement: Esp = EspacesOuTabs()) -> Self {
         self.enIgnorantPrefixe(prefixe, espacement: espacement).enIgnorantSuffixe(suffixe, espacement: espacement)
     }
 

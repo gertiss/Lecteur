@@ -11,7 +11,7 @@ import Foundation
 /// `a.liste()`
 public extension Lecteur {
     
-    func liste<Esp: UnEspacement>(espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Lecteur<[Valeur]> {
+    func liste<Esp: UnEspacement>(espacement: Esp = EspacesOuTabs()) -> Lecteur<[Valeur]> {
         .init { source in
             
             // On essaye de lire une première valeur.

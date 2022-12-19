@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Erreur d'analyse syntaxique d'un texte source.
+/// "reste" est le suffixe de la source qu'on n'a pas pu lire.
 public struct Erreur {
     public let message: String
     public let reste: String

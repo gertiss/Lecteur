@@ -14,7 +14,7 @@ import Foundation
 
 public extension Lecteur  {
     
-    func suiviDe<Valeur1, Esp: UnEspacement>(_ lecteur1: Lecteur<Valeur1>, espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Lecteur<(Valeur, Valeur1)> {
+    func suiviDe<Valeur1, Esp: UnEspacement>(_ lecteur1: Lecteur<Valeur1>, espacement: Esp = EspacesOuTabs()) -> Lecteur<(Valeur, Valeur1)> {
         typealias Valeur0 = Valeur
         return .init { source in
             self.lire(source)
@@ -35,7 +35,7 @@ public extension Lecteur  {
         }
     }
     
-    func suiviDe2<Valeur1, Valeur2, Esp: UnEspacement>(_ lecteur1: Lecteur<Valeur1>, _ lecteur2: Lecteur<Valeur2>, espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Lecteur<(Valeur, Valeur1, Valeur2)> {
+    func suiviDe2<Valeur1, Valeur2, Esp: UnEspacement>(_ lecteur1: Lecteur<Valeur1>, _ lecteur2: Lecteur<Valeur2>, espacement: Esp = EspacesOuTabs()) -> Lecteur<(Valeur, Valeur1, Valeur2)> {
         typealias Valeur0 = Valeur
         
         return .init { source in
@@ -55,7 +55,7 @@ public extension Lecteur  {
         }
     }
     
-    func suiviDe3<Valeur1, Valeur2, Valeur3, Esp: UnEspacement>(_ lecteur1: Lecteur<Valeur1>, _ lecteur2: Lecteur<Valeur2>, _ lecteur3: Lecteur<Valeur3>, espacement: Lecteur<Esp> = EspacesOuTabs.lecteur) -> Lecteur<(Valeur, Valeur1, Valeur2, Valeur3)> {
+    func suiviDe3<Valeur1, Valeur2, Valeur3, Esp: UnEspacement>(_ lecteur1: Lecteur<Valeur1>, _ lecteur2: Lecteur<Valeur2>, _ lecteur3: Lecteur<Valeur3>, espacement: Esp = EspacesOuTabs()) -> Lecteur<(Valeur, Valeur1, Valeur2, Valeur3)> {
         typealias Valeur0 = Valeur
         
         return .init { source in

@@ -17,12 +17,8 @@ import Foundation
 import Foundation
 import RegexBuilder
 
-/// Lit une suite non vide de caractères `.word` optionnellement encadrée par `.espaceOuTab`
-/// Consomme les `.espaceOuTab` avant et après
-/// "  abc  suite " est accepté, la valeur est "abc" et le reste est "suite ".
-/// "abcsuite" est accepté avec valeur "abcsuite", reste vide
-/// " " est refusé
-/// " , suite" est refusé
+/// Lit une suite non vide de caractères `.word`
+/// Pas d'élagage automatique
 struct Mot: AvecLecteurRegex {
     
     let texte: String

@@ -9,28 +9,13 @@ import Foundation
 import RegexBuilder
 
 /// Représente une suite éventuellement vide de `.espaceOuTab`
-/// La lecture retourne la valeur `EspacesOuTabs()`
-public struct EspacesOuTabs: AvecLecteurRegex, UnEspacement {
+public struct EspacesOuTabs: UnEspacement {
+    public static let characterClass =  CharacterClass.caractereEspaceOuTab
     
     public init() {
         
     }
-    
-    public static func valeur(_ sortie: Substring) -> EspacesOuTabs {
-        EspacesOuTabs()
-    }
-    
-    public static func == (lhs: EspacesOuTabs, rhs: EspacesOuTabs) -> Bool {
-        true
-    }
         
-    /// Réussit toujours. Peut être vide
-    public static let regex = espacesOuTabs
-    
-    public var sourceRelisible: String {
-        ""
-    }
-    
     public var description: String {
         "EspacesOuTabs()"
     }

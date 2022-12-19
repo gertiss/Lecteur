@@ -18,24 +18,6 @@ public extension CharacterClass {
     
 }
 
-// MARK: - Regex. Global
-
-/// Réussit toujours. Peut être vide
-let espacesOuTabs = Regex<Substring> {
-    ZeroOrMore { CharacterClass.caractereEspaceOuTab }
-}
 
 
-/// Réussit toujours. Peut être vide
-let espacesOuTabsOuReturns = Regex<Substring> {
-    ZeroOrMore { CharacterClass.caractereEspaceOuTabOuReturn }
-}
-
-
-/// Un return obligatoire éventuellement suivi d'espaces ou tabs ou returns.
-/// Peut servir pour indiquer la fin d'un texteEnLigne
-let unOuPlusieursReturns = Regex<Substring> {
-    CharacterClass.newlineSequence
-    ZeroOrMore { CharacterClass.caractereEspaceOuTabOuReturn }
-}
 

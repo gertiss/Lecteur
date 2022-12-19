@@ -8,24 +8,15 @@
 import Foundation
 import RegexBuilder
 
-/// Représente une suite éventuellement vide de `.espaceOuTab`
-/// La lecture retourne la valeur `EspacesOuTabs()`
-public struct EspacesOuTabsOuReturns: AvecLecteurRegex, UnEspacement {
+/// Représente une suite éventuellement vide de espaces ou tabs ou returns.
+public struct EspacesOuTabsOuReturns: UnEspacement {
     
     public init() {
         
     }
+        
+    public static let characterClass = CharacterClass.caractereEspaceOuTabOuReturn
     
-    public static func valeur(_ sortie: Substring) -> EspacesOuTabsOuReturns {
-        EspacesOuTabsOuReturns()
-    }
-    
-    /// Réussit toujours. Peut être vide
-    public static let regex = espacesOuTabsOuReturns
-    
-    public var sourceRelisible: String {
-        ""
-    }
     
     public var description: String {
         "EspacesOuTabsOuReturns()"

@@ -98,7 +98,7 @@ final class LecteurTests: XCTestCase {
         XCTAssert(
         testerSucces(
             prompt: "Vide réussit toujours",
-            Vide.lecteur,
+            "".lecteur,
             "a b @")
         )
     }
@@ -206,7 +206,7 @@ final class LecteurTests: XCTestCase {
     
     
     func testLecteurAvecMarqueFin() {
-        let lecteur = Mot.lecteur.avecSuffixe(Token("\n").lecteur)
+        let lecteur = Mot.lecteur.avecSuffixe("\n".lecteur)
         let lecture = lecteur.lire("a \n suite")
         XCTAssert(lecture.estSucces)
         XCTAssertEqual(lecture.reste, " suite")
@@ -276,7 +276,7 @@ final class LecteurTests: XCTestCase {
     }
     
     func testErreurSuiviDeAvecSeparateur() {
-        let lecteur = Mot.lecteur.suiviDeAvecSeparateur(lecteur1: Mot.lecteur, separateur: Token(",").lecteur)
+        let lecteur = Mot.lecteur.suiviDeAvecSeparateur(lecteur1: Mot.lecteur, separateur: ",".lecteur)
         
         let lecture = lecteur.lireTout("a b, c")
         XCTAssert(lecture.estEchec)
@@ -298,21 +298,8 @@ final class LecteurTests: XCTestCase {
         // On a lu a mais on attend un second mot, sans séparateur
         XCTAssertEqual(lecture.reste, ", b")
         print(lecture.texte)
-
     }
-    
-    func testToken() {
-        let lecteur = Token("abc").lecteur
-        let lecture = lecteur.lire("abc")
-        XCTAssert(lecture.estSucces)
-        XCTAssertEqual(lecture.valeur, Token("abc"))
         
-        let lectureEchec = lecteur.lire("xyz")
-        XCTAssert(lectureEchec.estEchec)
-        // On attend abc mais on a lu xyz
-        print(lectureEchec.texte)
-    }
-    
     /// Le lecteur Int de Swift n'accepte ni les espaces avant (il n'élague pas préventivement) ni les espaces après (c'est un lireTout strict).
     func testLectureSwiftInt() {
         XCTAssertEqual(Int("1"), 1)
@@ -321,7 +308,7 @@ final class LecteurTests: XCTestCase {
     }
     
     func testAvecEncadrement() {
-        let lecteur = Mot.lecteur.avecEncadrement(ouvrante: "{", fermante: "}", espacement: EspacesOuTabsOuReturns.lecteur)
+        let lecteur = Mot.lecteur.avecEncadrement(ouvrante: "{", fermante: "}", espacement: EspacesOuTabsOuReturns())
         let lecture = lecteur.lire("{\n a \n } @")
         print(lecture.texte)
     }
@@ -338,7 +325,7 @@ final class LecteurTests: XCTestCase {
         /// Cela revient à dire qu'on accepte un espacement initial
         XCTAssert(testerSucces(
             prompt: "mot en ignorant préfixe vide ...",
-            Mot.lecteur.enIgnorantPrefixe(Vide.lecteur),
+            Mot.lecteur.enIgnorantPrefixe("".lecteur),
             " a b c")
         )
 
@@ -352,7 +339,7 @@ final class LecteurTests: XCTestCase {
         /// Cela revient à dire qu'on consomme un espacement après le mot
         XCTAssert(testerSucces(
             prompt: "mot en ignorant suffixe ... vide",
-            Mot.lecteur.enIgnorantSuffixe(Vide.lecteur),
+            Mot.lecteur.enIgnorantSuffixe("".lecteur),
             "a b c")
         )
 
@@ -415,5 +402,6 @@ final class LecteurTests: XCTestCase {
          )
 
     }
+    
     
 }

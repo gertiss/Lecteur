@@ -25,6 +25,7 @@ public extension Lu {
         Lu<NewValeur>(valeur: f(valeur), reste: reste)
     }
     
+    /// le flatMap d'une monade
     func puis<NewValeur>(_ f: (Valeur) -> Lu<NewValeur>) -> Lu<NewValeur> {
         return f(valeur)
     }

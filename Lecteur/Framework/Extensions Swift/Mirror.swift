@@ -7,6 +7,10 @@
 
 import Foundation
 
+/// Extension destinée à analyser dynamiquement la sortie d'un match d'une Regex
+/// Permet d'extraire la capture globale match.0 en vérifiant qu'elle est de type String ou Substring
+/// C'est prudent parce que le résultat d'un match est très dynamique.
+
 extension Mirror {
     
     var estStringOuSubstring: Bool {

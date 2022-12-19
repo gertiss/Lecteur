@@ -7,12 +7,16 @@
 
 import Foundation
 
-
+/// Utilisation : `let lecture = self.lire(source)`
+/// On peut personnaliser le message d'erreur "On attend ..." en fournissant un paramètre String "attendu". Ce paramètre est optionnel et a une valeur par défaut.
+/// Exemple d'init : `Lecteur(attendu: "ce qu'on attend") { source in ... }`
+/// la closure rend une `Lecture<Valeur>`
 public struct Lecteur<Valeur> {
     
     public let lire: (String) -> Lecture<Valeur>
     
-    /// Le texte à afficher dans le message "On attend ..."
+    /// Le texte à afficher dans le message d'erreur  "On attend <attendu>"
+    /// On lui attribue une valeur par défaut à l'init, qui est le nom du type Valeur.
     public var attendu: String
     
     public init(attendu: String? = nil, lire: @escaping (String) -> Lecture<Valeur>) {
@@ -22,46 +26,10 @@ public struct Lecteur<Valeur> {
                 
 }
 
+extension Lecteur {
 
-// MARK: - Monade
-
-public extension Lecteur {
-    
-    func puis<NewValeur>(_ f: @escaping (Valeur) -> Lecteur<NewValeur>) -> Lecteur<NewValeur> {
-        return Lecteur<NewValeur> { source in
-            lire(source).puis { lu in  return f(lu.valeur).lire(lu.reste) }
-        }
-    }
-    
-    func mapValeur<NewValeur>(_ f: @escaping (Valeur) -> NewValeur) -> Lecteur<NewValeur> {
-        Lecteur<NewValeur> { source in
-            switch lire(source) {
-            case .echec(let erreur):
-                return .echec(erreur)
-            case .succes(let lu):
-                return .succes(lu.map(f))
-            }
-        }
-    }
-    
-    func mapErreur(_ f: @escaping (Erreur) -> Erreur) -> Lecteur<Valeur> {
-        Lecteur<Valeur> { source in
-            switch lire(source) {
-            case .echec(let erreur):
-                return .echec(f(erreur))
-            case .succes(let lu):
-                return .succes(lu)
-            }
-        }
-    }
-
-    
-    /// Produit un effet de bord et retourne self
-    func effet(_ f: @escaping (Valeur) -> Void) -> Self {
-        let _ = self.mapValeur { valeur in f(valeur) }
-        return self
-    }
-    
+    /// Appelle la fonction lire et vérifie qu'il y a succès et que le reste est vide.
+    /// S'il y a succès et que le reste n'est pas vide, analyse le bon parenthésage dans le reste pour les symboles usuels de parenthésage {} () [] «». Cela permet d'affiner le message d'erreur.
     func lireTout(_ source: String) -> Lecture<Valeur>  {
         let lecture = lire(source)
         switch lecture  {
@@ -81,5 +49,45 @@ public extension Lecteur {
             }
         }
     }
-    
 }
+
+
+
+// MARK: - Monade
+
+public extension Lecteur {
+    
+    /// Le flatMap de la monade
+    func puis<NewValeur>(_ f: @escaping (Valeur) -> Lecteur<NewValeur>) -> Lecteur<NewValeur> {
+        return Lecteur<NewValeur> { source in
+            lire(source).puis { lu in  return f(lu.valeur).lire(lu.reste) }
+        }
+    }
+    
+    /// Transforme la valeur si succès.
+    /// Se contente de transmettre l'échec sinon, avec retypage.
+    func mapValeur<NewValeur>(_ f: @escaping (Valeur) -> NewValeur) -> Lecteur<NewValeur> {
+        Lecteur<NewValeur> { source in
+            switch lire(source) {
+            case .echec(let erreur):
+                return .echec(erreur)
+            case .succes(let lu):
+                return .succes(lu.map(f))
+            }
+        }
+    }
+    
+    /// Transforme l'erreur si échec
+    /// Se contente de transmettre le succès sinon.
+    func mapErreur(_ f: @escaping (Erreur) -> Erreur) -> Lecteur<Valeur> {
+        Lecteur<Valeur> { source in
+            switch lire(source) {
+            case .echec(let erreur):
+                return .echec(f(erreur))
+            case .succes(let lu):
+                return .succes(lu)
+            }
+        }
+    }
+}
+

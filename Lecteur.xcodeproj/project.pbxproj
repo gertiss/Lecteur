@@ -11,12 +11,10 @@
 		5000BD532940FBEC008F27D5 /* avecSuffixe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5000BD522940FBEC008F27D5 /* avecSuffixe.swift */; };
 		500384DA2937C94500623C40 /* EspacesOuTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500384D92937C94500623C40 /* EspacesOuTabs.swift */; };
 		503914B6294EF6A600AE0B5A /* enIgnorant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503914B5294EF6A600AE0B5A /* enIgnorant.swift */; };
-		503914B8294F1AD800AE0B5A /* Vide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503914B7294F1AD800AE0B5A /* Vide.swift */; };
 		503B765B29375D9F00900BE4 /* AvecLecteurInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503B765A29375D9F00900BE4 /* AvecLecteurInstance.swift */; };
 		503B765F2937A9E000900BE4 /* Regex Espacements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503B765E2937A9E000900BE4 /* Regex Espacements.swift */; };
 		503D18B2294DFE4D0080163D /* UnEspacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503D18B1294DFE4D0080163D /* UnEspacement.swift */; };
 		503F4C2A292B722300DB9F41 /* AvecLecteurRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503F4C29292B722300DB9F41 /* AvecLecteurRegex.swift */; };
-		5052A0EF292A1A5E005ACA5D /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5052A0EE292A1A5E005ACA5D /* Optional.swift */; };
 		5052A0F0292A648E005ACA5D /* optionnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F87D829262ED20022543F /* optionnel.swift */; };
 		5052A0F1292A64BF005ACA5D /* suiviDe 2 3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F87DA29262ED20022543F /* suiviDe 2 3.swift */; };
 		5052A0F2292A64DC005ACA5D /* ou 2 3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508776D32928C562008E199D /* ou 2 3.swift */; };
@@ -26,7 +24,6 @@
 		50696958292783930094780F /* Erreur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50696957292783930094780F /* Erreur.swift */; };
 		506969A12927E2F60094780F /* AvecLecteur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506969A02927E2F60094780F /* AvecLecteur.swift */; };
 		5069BD862930C74100EC3F5A /* avecEncadrement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5069BD852930C74100EC3F5A /* avecEncadrement.swift */; };
-		5069BD882930C9EE00EC3F5A /* UnEncadrement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5069BD872930C9EE00EC3F5A /* UnEncadrement.swift */; };
 		508F87CE29262E120022543F /* Lu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F87CD29262E120022543F /* Lu.swift */; };
 		508F87D129262E590022543F /* String_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F87CF29262E590022543F /* String_Extension.swift */; };
 		508F87F32926E3BC0022543F /* Lecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F87F22926E3BC0022543F /* Lecture.swift */; };
@@ -37,7 +34,6 @@
 		50D45A3329256072001C7723 /* Lecteur.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D45A2829256071001C7723 /* Lecteur.framework */; };
 		50D45A3829256072001C7723 /* LecteurTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D45A3729256072001C7723 /* LecteurTests.swift */; };
 		50D45A3929256072001C7723 /* Lecteur.h in Headers */ = {isa = PBXBuildFile; fileRef = 50D45A2B29256071001C7723 /* Lecteur.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50E7D3762948ADE400F6C8DB /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7D3752948ADE400F6C8DB /* Token.swift */; };
 		50F4D246292FAB8100C6706C /* Choix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4D245292FAB8100C6706C /* Choix.swift */; };
 		50F4D24A292FE8A300C6706C /* liste.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4D249292FE8A300C6706C /* liste.swift */; };
 		50F4D24B292FF65D00C6706C /* listeAvecSeparateur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C60AF5292E17E8008D83A5 /* listeAvecSeparateur.swift */; };
@@ -60,16 +56,13 @@
 		5000BD522940FBEC008F27D5 /* avecSuffixe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = avecSuffixe.swift; sourceTree = "<group>"; };
 		500384D92937C94500623C40 /* EspacesOuTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EspacesOuTabs.swift; sourceTree = "<group>"; };
 		503914B5294EF6A600AE0B5A /* enIgnorant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = enIgnorant.swift; sourceTree = "<group>"; };
-		503914B7294F1AD800AE0B5A /* Vide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vide.swift; sourceTree = "<group>"; };
 		503B765A29375D9F00900BE4 /* AvecLecteurInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvecLecteurInstance.swift; sourceTree = "<group>"; };
 		503B765E2937A9E000900BE4 /* Regex Espacements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Regex Espacements.swift"; sourceTree = "<group>"; };
 		503D18B1294DFE4D0080163D /* UnEspacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnEspacement.swift; sourceTree = "<group>"; };
 		503F4C29292B722300DB9F41 /* AvecLecteurRegex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvecLecteurRegex.swift; sourceTree = "<group>"; };
-		5052A0EE292A1A5E005ACA5D /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
 		50696957292783930094780F /* Erreur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Erreur.swift; sourceTree = "<group>"; };
 		506969A02927E2F60094780F /* AvecLecteur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvecLecteur.swift; sourceTree = "<group>"; };
 		5069BD852930C74100EC3F5A /* avecEncadrement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = avecEncadrement.swift; sourceTree = "<group>"; };
-		5069BD872930C9EE00EC3F5A /* UnEncadrement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnEncadrement.swift; sourceTree = "<group>"; };
 		508776D32928C562008E199D /* ou 2 3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ou 2 3.swift"; sourceTree = "<group>"; };
 		508776D72928D343008E199D /* listeNonVide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = listeNonVide.swift; sourceTree = "<group>"; };
 		508776D92928D6A9008E199D /* present.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = present.swift; sourceTree = "<group>"; };
@@ -88,7 +81,6 @@
 		50D45A2C29256071001C7723 /* Lecteur.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Lecteur.docc; sourceTree = "<group>"; };
 		50D45A3229256072001C7723 /* LecteurTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LecteurTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50D45A3729256072001C7723 /* LecteurTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LecteurTests.swift; sourceTree = "<group>"; };
-		50E7D3752948ADE400F6C8DB /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		50F4D245292FAB8100C6706C /* Choix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Choix.swift; sourceTree = "<group>"; };
 		50F4D249292FE8A300C6706C /* liste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = liste.swift; sourceTree = "<group>"; };
 		50F4E5D129421DCF000ED8D9 /* avecPrefixe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = avecPrefixe.swift; sourceTree = "<group>"; };
@@ -173,7 +165,6 @@
 		50D45A432925633D001C7723 /* Protocoles */ = {
 			isa = PBXGroup;
 			children = (
-				5069BD872930C9EE00EC3F5A /* UnEncadrement.swift */,
 				503D18B1294DFE4D0080163D /* UnEspacement.swift */,
 				506969A02927E2F60094780F /* AvecLecteur.swift */,
 				503B765A29375D9F00900BE4 /* AvecLecteurInstance.swift */,
@@ -206,7 +197,6 @@
 			isa = PBXGroup;
 			children = (
 				508F87CF29262E590022543F /* String_Extension.swift */,
-				5052A0EE292A1A5E005ACA5D /* Optional.swift */,
 				5000BD502940F532008F27D5 /* Mirror.swift */,
 			);
 			path = "Extensions Swift";
@@ -220,8 +210,6 @@
 				508F87F22926E3BC0022543F /* Lecture.swift */,
 				508F87F42926EC940022543F /* Lecteur.swift */,
 				50F4D245292FAB8100C6706C /* Choix.swift */,
-				50E7D3752948ADE400F6C8DB /* Token.swift */,
-				503914B7294F1AD800AE0B5A /* Vide.swift */,
 			);
 			path = Primitives;
 			sourceTree = "<group>";
@@ -351,7 +339,6 @@
 				508F87F52926EC940022543F /* Lecteur.swift in Sources */,
 				5052A0F4292A6507005ACA5D /* listeNonVide.swift in Sources */,
 				5052A0F2292A64DC005ACA5D /* ou 2 3.swift in Sources */,
-				5069BD882930C9EE00EC3F5A /* UnEncadrement.swift in Sources */,
 				50F4D246292FAB8100C6706C /* Choix.swift in Sources */,
 				5052A0F6292A6522005ACA5D /* absent.swift in Sources */,
 				503B765F2937A9E000900BE4 /* Regex Espacements.swift in Sources */,
@@ -363,10 +350,8 @@
 				5000BD512940F532008F27D5 /* Mirror.swift in Sources */,
 				508F87CE29262E120022543F /* Lu.swift in Sources */,
 				508F87D129262E590022543F /* String_Extension.swift in Sources */,
-				5052A0EF292A1A5E005ACA5D /* Optional.swift in Sources */,
 				5052A0F0292A648E005ACA5D /* optionnel.swift in Sources */,
 				5052A0F5292A6517005ACA5D /* present.swift in Sources */,
-				503914B8294F1AD800AE0B5A /* Vide.swift in Sources */,
 				5000BD532940FBEC008F27D5 /* avecSuffixe.swift in Sources */,
 				5052A0F1292A64BF005ACA5D /* suiviDe 2 3.swift in Sources */,
 				50CBD8FF294DCDBD00699E95 /* Exemple Mot.swift in Sources */,
@@ -374,7 +359,6 @@
 				50F4D24B292FF65D00C6706C /* listeAvecSeparateur.swift in Sources */,
 				503B765B29375D9F00900BE4 /* AvecLecteurInstance.swift in Sources */,
 				5069BD862930C74100EC3F5A /* avecEncadrement.swift in Sources */,
-				50E7D3762948ADE400F6C8DB /* Token.swift in Sources */,
 				500384DA2937C94500623C40 /* EspacesOuTabs.swift in Sources */,
 				506969A12927E2F60094780F /* AvecLecteur.swift in Sources */,
 				50CBD8FD294DCBD000699E95 /* EspacesOuTabsOuReturns.swift in Sources */,

@@ -7,6 +7,8 @@
 
 import Foundation
 
+// Permet de représenter les résultats des opérateurs ou, ou2, ou3
+
 public enum Choix<Valeur0, Valeur1> {
     case cas0(Valeur0)
     case cas1(Valeur1)
