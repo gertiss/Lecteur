@@ -26,7 +26,7 @@ public struct Lecteur<Valeur> {
                 
 }
 
-extension Lecteur {
+public extension Lecteur {
 
     /// Appelle la fonction lire et vérifie qu'il y a succès et que le reste est vide.
     /// S'il y a succès et que le reste n'est pas vide, analyse le bon parenthésage dans le reste pour les symboles usuels de parenthésage {} () [] «». Cela permet d'affiner le message d'erreur.

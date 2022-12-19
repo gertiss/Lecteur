@@ -118,7 +118,7 @@ public extension Lecture {
 
 // MARK: comptes rendus optionnels
 
-extension Lecture {
+public extension Lecture {
 
     /// lu si succès, nil si échec
     var lu: Lu<Valeur>? {

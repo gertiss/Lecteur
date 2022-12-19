@@ -308,7 +308,7 @@ final class LecteurTests: XCTestCase {
     }
     
     func testAvecEncadrement() {
-        let lecteur = Mot.lecteur.avecEncadrement(ouvrante: "{", fermante: "}", espacement: EspacesOuTabsOuReturns())
+        let lecteur = Mot.lecteur.avecEncadrement(prefixe: "{", suffixe: "}", espacement: EspacesOuTabsOuReturns())
         let lecture = lecteur.lire("{\n a \n } @")
         print(lecture.texte)
     }
@@ -385,19 +385,19 @@ final class LecteurTests: XCTestCase {
  
        XCTAssert(testerSucces(
             prompt: "mot avec encadrement debut ... fin",
-            Mot.lecteur.avecEncadrement(ouvrante: "debut", fermante: "fin"),
+            Mot.lecteur.avecEncadrement(prefixe: "debut", suffixe: "fin"),
             "debut a fin")
         )
 
         XCTAssert(testerEchec(
              prompt: "mot avec encadrement debut ... fin",
-             Mot.lecteur.avecEncadrement(ouvrante: "debut", fermante: "fin"),
+             Mot.lecteur.avecEncadrement(prefixe: "debut", suffixe: "fin"),
              "debut a")
          )
 
         XCTAssert(testerEchec(
              prompt: "mot avec encadrement debut ... fin",
-             Mot.lecteur.avecEncadrement(ouvrante: "debut", fermante: "fin"),
+             Mot.lecteur.avecEncadrement(prefixe: "debut", suffixe: "fin"),
              "a fin")
          )
 
