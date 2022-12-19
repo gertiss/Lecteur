@@ -10,16 +10,16 @@ import Foundation
 public extension Lecteur {
     
     /// Exige que la source commence par un préfixe conforme à self.
-    /// Mais ne consomme rien et rend EspacesOuTabs si succès.
+    /// Mais ne consomme rien et rend "" si succès.
     /// C'est un opérateur de pré-lecture (lookahead)
-    func present() -> Lecteur<EspacesOuTabs> {
+    func present() -> Lecteur<String> {
         
-        Lecteur<EspacesOuTabs> { source in
+        Lecteur<String> { source in
             let lecture = self.lire(source)
             guard lecture.estSucces else {
                 return .echec(Erreur(message: "On attend \(self.attendu)", reste: source))
             }
-            return .succes(Lu<EspacesOuTabs>(valeur: EspacesOuTabs(), reste: source))
+            return .succes(Lu<String>(valeur: "", reste: source))
         }
     }
 }

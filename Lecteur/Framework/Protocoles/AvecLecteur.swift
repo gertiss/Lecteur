@@ -9,7 +9,7 @@ import Foundation
 
 public protocol AvecLecteur: Equatable, CustomStringConvertible {
 
-    /// Self.lecteur.lireTout(source).valeur donne une instance de Self si succès
+    /// `Self.lecteur.lireTout(source).valeur` donne une instance de Self si succès
     static var lecteur: Lecteur<Self> { get }
     
     /// source pouvant être relue par le lecteur pour redonner une copie de self
@@ -19,18 +19,17 @@ public protocol AvecLecteur: Equatable, CustomStringConvertible {
     /// description est un code Swift dont l'évaluation donne une copie de self
     var description: String { get }
     
+    /// Lit la source pour extraire un préfixe qui représente une instance
+    static func lireInstance(_ source: String) -> Lecture<Self>
 }
 
 public extension AvecLecteur {
-    
-    static var lire: Lecteur<Self> {
-        Lecteur {
-            source in
-            Self.lecteur.lire(source)
-        }
+        
+    static func lireInstance(_ source: String) -> Lecture<Self> {
+        Self.lecteur.lire(source)
     }
-    
-    static func lireTout(_ source: String) -> Lecture<Self> {
+
+    static func lireInstanceSansReste(_ source: String) -> Lecture<Self> {
         Self.lecteur.lireTout(source)
     }
     
